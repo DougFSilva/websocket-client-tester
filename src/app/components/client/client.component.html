@@ -1,0 +1,59 @@
+<div class="container mat-elevation-z4">
+
+  <h1>CLIENT WEBSOCKET</h1>
+
+  <div class="connect-subscribe-field">
+    <mat-form-field class="url">
+      <mat-label>Websocket URL</mat-label>
+      <input matInput type="text" [(ngModel)]="url">
+      <button *ngIf="url" matSuffix mat-icon-button aria-label="Clear" (click)="url=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button *ngIf="!connected" mat-raised-button color="primary" class="button-connect" (click)="connect()">Connect</button>
+    <button *ngIf="connected" mat-raised-button color="warn" class="button-disconnect" (click)="disconnect()">Disconnect</button>
+
+    <mat-form-field class="topic-to-subscribe">
+      <mat-label>Topic to subscribe</mat-label>
+      <input matInput type="text" [(ngModel)]="topicToSubscribe">
+      <button *ngIf="topicToSubscribe" matSuffix mat-icon-button aria-label="Clear" (click)="topicToSubscribe=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button class="button-subscribe" [disabled]="!connected" color="primary" (click)="subscribe()">Subscribe</button>
+  </div>
+
+  <div class="message-send-field">
+    <mat-form-field class="topic-to-send">
+      <mat-label>Topic to send</mat-label>
+      <input matInput type="text" [(ngModel)]="topicToSend">
+      <button *ngIf="topicToSend" matSuffix mat-icon-button aria-label="Clear" (click)="topicToSend=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field  class="message-to-send">
+      <mat-label>Write the message you want to send</mat-label>
+      <input matInput type="text" [(ngModel)]="messageToSend">
+      <button *ngIf="messageToSend" matSuffix mat-icon-button aria-label="Clear" (click)="messageToSend=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button class="button-send" [disabled]="!connected" (click)="sendMessage()">Send</button>
+  </div>
+
+  <span>Subscribed to topics:</span>
+  <span *ngFor="let topic of subscribedToTopics">
+     {{topic}}
+  </span>
+  <div class="message-received-field">
+    <p>Message Received</p>
+    <div *ngFor="let message of messagesReceived" class="message-received">
+      <mat-divider></mat-divider>
+      <p>Message index: {{messagesReceived.indexOf(message) + 1}}</p>
+      <strong>Header:</strong>
+      <pre>{{message.header}}</pre>
+      <strong>Body:</strong>
+      <pre>{{message.body}}</pre>
+    </div>
+  </div>
+</div>

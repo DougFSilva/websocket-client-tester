@@ -1,0 +1,72 @@
+.container {
+  width: 55rem;
+  margin: 1rem auto;
+  background-color: beige;
+  padding: 1rem;
+  border-radius: .2rem;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 500;
+}
+
+.connect-subscribe-field {
+  display: flex;
+  justify-content: space-between;
+}
+
+.url {
+  width: 26rem;
+}
+
+.topic-to-subscribe {
+  margin: 0 .5em;
+  width: 10rem;
+}
+
+.button-connect, .button-disconnect, .button-subscribe{
+  width: 7rem;
+  height: 2.5rem;
+}
+
+.message-send-field {
+  display: flex;
+  justify-content: space-between;
+}
+
+.topic-to-send {
+  width: 10rem;
+}
+
+.message-to-send {
+  margin-left: .5rem;
+  width: 35rem;
+}
+
+.button-send {
+  background-color: green;
+  color: white;
+  margin-left: .5rem;
+  width: 7rem;
+  height: 2.5rem;
+}
+
+.message-received-field {
+  background-color: white;
+  border: 1px solid #555 ;
+  width: 100%;
+  height: 22rem;
+  overflow-y: scroll;
+}
+
+.message-received {
+  padding: 1rem;
+}
+
+.message-received p {
+  text-align: end;
+}
+
+
+
