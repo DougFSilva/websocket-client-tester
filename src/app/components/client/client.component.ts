@@ -12,7 +12,7 @@ import * as Stomp from 'stompjs';
 })
 export class ClientComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
-  public url: string ="http://localhost:8080/pedidos-recebidos";
+  public url: string ="http://localhost";
   public subscribedToTopics: string[] = [];
   public topicToSubscribe: string;
   public topicToSend: string;
@@ -32,12 +32,13 @@ export class ClientComponent implements OnInit {
         return;
       }
     }
-    const socket = new SockJS(this.url);
+    const socket = new SockJS(this.url)
     this.stompClient = Stomp.over(socket);
     const that = this;
     this.stompClient.connect({}, function (frame) {
-      if(frame.command == "CONNECTED"){
+      if(that.stompClient.connected){
         that.connected = true;
+        that.toast.success("Connected successfully!", "SUCCESS")
       }
     });
   }
@@ -57,16 +58,19 @@ export class ClientComponent implements OnInit {
 
   disconnect(): void {
     if (this.stompClient.connected) {
-      this.stompClient.disconnect();
-      this.connected = false;
-      this.messagesReceived = [];
-      this.subscribedToTopics = [];
-      this.topicToSubscribe = "";
+      this.stompClient.disconnect(() => {
+        this.connected = false;
+        this.messagesReceived = [];
+        this.subscribedToTopics = [];
+        this.topicToSubscribe = "";
+        this.toast.success("Disconnected Successfully!", "SUCCESS")
+      });
     }
   }
 
   sendMessage() {
     this.stompClient.send(this.topicToSend , {}, this.messageToSend);
     this.messageToSend = "";
+    this.toast.success("Message sent successfully", "SUCCESS")
   }
 }
